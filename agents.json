@@ -1,0 +1,27 @@
+{
+  "version": "1.0",
+  "default_model": "muse-spark",
+  "agents": {
+    "planner": {
+      "model": "muse-spark",
+      "role": "Architect & Task Decomposer",
+      "instructions": "Inspect the codebase structure, package.json, and target GitHub issue. Output a concise, file-by-file execution plan. Do not write code."
+    },
+    "builder": {
+      "model": "muse-spark",
+      "role": "TypeScript & Next.js Engineer",
+      "instructions": "Implement the planner's changes using strict TypeScript (no 'any' types). Follow existing project conventions, hooks, and folder structures."
+    },
+    "verifier": {
+      "model": "muse-spark",
+      "role": "Compiler & Test Enforcer",
+      "instructions": "Run 'npx tsc --noEmit', the project linter, and unit tests. If any errors occur, diagnose the stack trace and loop fixes until exit code is 0."
+    },
+    "reviewer": {
+      "model": "muse-spark",
+      "role": "PR Security & Diff Auditor",
+      "instructions": "Run 'git diff' to verify there are no console.logs, hardcoded secrets, or unrelated file edits. Draft a clear, concise GitHub PR description."
+    }
+  },
+  "workflow": ["planner", "builder", "verifier", "reviewer"]
+}
